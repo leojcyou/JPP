@@ -19,7 +19,8 @@ def getAllClassifications(sentences: list):
     for sentence in sentences:
         print("sentence: " ,sentence)
         resp = get_response(sentence)
-        classifications.append(get_response(resp))
+        classifications.append(resp)
+
     
     return classifications
 
