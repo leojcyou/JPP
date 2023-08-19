@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../contexts/AuthContext';
 
 const Signup = () => {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('')
@@ -13,7 +14,7 @@ const Signup = () => {
     e.preventDefault();
     setError('');
     try {
-      await createUser(email, password);
+      await createUser(email, password, name);
       navigate('/Home')
     } catch (e) {
       setError(e.message);
@@ -33,6 +34,13 @@ const Signup = () => {
         </p>
       </div>
       <form onSubmit={handleSubmit}>
+        <div className='flex flex-col py-2'>
+          <label className='py-2 font-medium'>Preferred Name</label>
+          <input
+            onChange={(e) => setName(e.target.value)}
+            className='border p-3'
+          />
+        </div>
         <div className='flex flex-col py-2'>
           <label className='py-2 font-medium'>Email Address</label>
           <input

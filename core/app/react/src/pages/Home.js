@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { TextField, Typography, Button } from '@mui/material';
 import { db } from '../config/firebase';
 import { collection, addDoc } from "firebase/firestore";
+import { UserAuth } from '../contexts/AuthContext';
 
 import '../styles/Home.css';
 
 export default function Home() {
   const [note, setNote] = useState("");
+  const { user, logout } = UserAuth();
   
+  console.log("userauth: ", UserAuth())
+
   const notesCollectionRef = collection(db, "notes");
  
   // we need sentiment before we write to firestore db so these are fake values for now
-  const username = "Bob" //TODO CHANGE THIS LATER
-  const timestamp = 123456789
   const sentiment = "sad"
 
   const handleSubmit = async () => {
@@ -28,9 +30,9 @@ export default function Home() {
 
     try {
       await addDoc(notesCollectionRef, {
-        userName: username,
+        userName: user.email,
         text: note,
-        timestamp: timestamp,
+        timestamp: Math.floor(new Date().getTime() / 1000),
         sentiment: sentiment,
       });
       setNote("");
@@ -44,7 +46,7 @@ export default function Home() {
         <Typography 
           variant="h1"
           class="welcome-message">
-            Welcome, {"INSERT_USERS_NAME"}
+            Welcome, {user.displayName}
         </Typography>
         <TextField 
             variant="outlined"

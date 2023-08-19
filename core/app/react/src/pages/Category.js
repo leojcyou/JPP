@@ -30,7 +30,7 @@ export default function Category({ categories, category }) {
   // useEffect here to pull from db and place into segments
   useEffect(() => {
     getNotesList();
-  }, [segments])
+  }, [])
 
   const deleteSegment = async (id) => {
     const notesDoc = doc(db, "notes", id);

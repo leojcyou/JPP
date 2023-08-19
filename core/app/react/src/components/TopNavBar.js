@@ -7,6 +7,16 @@ import "../styles/TopNavBar.css";
 export default function TopNavBar({ categories }) {
     const nav = useNavigate();
 
+    const handleLogOut = async () => {
+        try {
+            // await logout(); // FOR SOME REASON THIS DOES NOT WORK
+            nav('/');
+            console.log('You are logged out')
+        } catch (e) {
+            console.log(e.message);
+        }
+    };
+
     return (
         <AppBar 
             position="static"
@@ -38,6 +48,18 @@ export default function TopNavBar({ categories }) {
                     >
                         {category}
                     </Button>) }
+                <Button
+                    sx={{ 
+                        color: '#3f3430', 
+                        fontFamily: 'EB Garamond',  
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        marginLeft: '1%'
+                    }}
+                    onClick={handleLogOut}
+                >
+                    Log Out
+                </Button>
             </Toolbar>
         </AppBar>
     );
