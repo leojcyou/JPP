@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 .hyperlink {
     color: #3f3430;
     font-family: 'EB Garamond';
     font-size: 16px;
     font-weight: 600;
     margin-left: 1%;
+=======
+.hyperlink {
+    color: #3f3430;
+    font-family: 'EB Garamond';
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 1%;
+>>>>>>> 732470c14fc9a99571ee5f487829545d372bf889
 }
