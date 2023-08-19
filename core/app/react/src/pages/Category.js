@@ -21,13 +21,14 @@ export default function Category({ categories, category }) {
 
   const getNotesList = async () => {
     try {
-      const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe'));
+      // const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe')); //TODO: CHANGE THIS LATER
       const data = await getDocs(notesCollectionRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
       setSegments(filteredData);
+      console.log(data)
     } catch (err) {
       console.error(err);
     }
@@ -37,7 +38,7 @@ export default function Category({ categories, category }) {
   // useEffect here to pull from db and place into segments
   useEffect(() => {
     getNotesList();
-  }, [segments])
+  }, [])
 
   const deleteSegment = async (id) => {
     const notesDoc = doc(db, "notes", id);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Input } from '@mui/material';
 
-export default function SegmentDisplay({ segment, segmentID, removeSeg, updateSeg }) {
+export default function SegmentDisplay({ segment, segmentID, updateSeg, removeSeg }) {
     const [paragraphText, setParagraphText] = useState(segment.text)
     const [editMode, setEditMode] = useState(false);
     
