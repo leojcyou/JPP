@@ -23,24 +23,29 @@ function App() {
     });
   }, []);
 
+  
   return (
     <div>
-    <BrowserRouter>
-      <TopNavBar categories={allCategories} />
-      <AuthContextProvider>
-        <Routes>
-          <Route path='/' element={<Signin />} />
-          <Route path='/login' element={<Signin />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='*' element={<Signin />} />
-          
-          <Route element={<ProtectedRoute/>}>
-            <Route path = "/Home" element={<Home />}></Route>
+      <BrowserRouter>
+        <TopNavBar categories={allCategories} />
+        <AuthContextProvider>
+          <Routes>
+            <Route path='/' element={<Signin />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='*' element={<Signin />} />
+            <Route
+              path='/Home'
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             { allCategories.map((category) => <Route path={`/${category.replaceAll(" ", "-")}`} element={<Category categories={allCategories} category={category} />} key={category} />) }
-          </Route>
-        </Routes>
-      </AuthContextProvider>
-    </BrowserRouter>
+            
+          </Routes>
+        </AuthContextProvider>
+      </BrowserRouter>
     </div>
   );
 }
