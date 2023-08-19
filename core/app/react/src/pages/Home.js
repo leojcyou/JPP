@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { TextField, Typography, Button } from '@mui/material';
-import WebFont from 'webfontloader';
-import { useNavigate } from 'react-router-dom';
 import { db } from '../config/firebase';
 import { collection, addDoc } from "firebase/firestore";
 
 import '../styles/Home.css';
-import Category from "../pages/Category";
 
 export default function Home() {
   const [note, setNote] = useState("");
   
   const notesCollectionRef = collection(db, "notes");
-  const nav = useNavigate();
-
+ 
   // we need sentiment before we write to firestore db so these are fake values for now
   const username = "Bob" //TODO CHANGE THIS LATER
   const timestamp = 123456789
   const sentiment = "sad"
 
   const handleSubmit = async () => {
+    const response = await fetch("http://127.0.0.1:8000/classification/", {
+      method: "POST",
+      body: JSON.stringify({
+        text: note,
+      })
+    });
+    const json = response.json();
+
+    console.log(json);
+
     try {
       await addDoc(notesCollectionRef, {
         userName: username,
@@ -33,14 +39,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ['EB Garamond']
-      }
-    });
-  }, []);
-
   return (
     <div class="container">
         <Typography 
@@ -52,22 +50,22 @@ export default function Home() {
             variant="outlined"
             multiline
             style={{ 
-              width: '80%',
-              backgroundColor: 'white',
+              width: '70%',
+              backgroundColor: '#f4f1ec',
               marginTop: '2%',
               marginBottom: '2%',
               borderRadius: '5px'
-              // '& .MuiOutlinedInput-root': {
-              //   borderRadius: '20px !important', // Adjust the border radius for the outline
-              // }
             }}
-            inputProps={{ style: { 
-              fontSize: '20px' 
-            }}}
-            rows={5}
+            inputProps={{ 
+              style: { 
+                fontSize: '20px',
+                border: 'none'
+              }
+            }}
+            rows={12}
             placeholder={"Unpack your thoughts here..."}
             value={note}
-            onChange={(e) => setNote(e.target.value)}   
+            onChange={(e) => setNote(e.target.value)}
         />
         <Button 
             // class="enter-button"
@@ -76,9 +74,6 @@ export default function Home() {
             color="success"
             onClick={handleSubmit}
         >Enter</Button>
-        <Button onClick={() => nav('/career')}>
-            Click me to go to career
-        </Button>
     </div>
   );
 }

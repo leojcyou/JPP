@@ -1,4 +1,7 @@
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import WebFont from 'webfontloader';
+
 import Home from './pages/Home';
 import Category from './pages/Category';
 import Signin from './pages/Signin';
@@ -6,9 +9,8 @@ import Signup from './pages/Signup';
 
 import { AuthContextProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute"
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import TopNavBar from './components/TopNavBar';
 
 function App() {
   const allCategories = ["career", "academics", "interpersonal relationships", "personal development"]
@@ -24,8 +26,9 @@ function App() {
 // </BrowserRouter>
 
   return (
-    
+    <div>
     <BrowserRouter>
+      <TopNavBar categories={allCategories} />
       <AuthContextProvider>
         <Routes>
           <Route path='/' element={<Signin />} />
@@ -39,10 +42,14 @@ function App() {
             }
           />
           { allCategories.map((category) => <Route path={`/${category.replaceAll(" ", "-")}`} element={<Category categories={allCategories} category={category} />} key={category} />) }
+          <Route
+            path="*"
+            element={<p>404 not found</p>}>
+          </Route>
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>
-
+    </div>
   );
 }
 

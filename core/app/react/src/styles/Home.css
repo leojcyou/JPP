@@ -1,7 +1,7 @@
-body {
+/* body {
     margin: 0;
     padding: 0;
-}
+} */
 
 .container {
     width: 100%;
@@ -15,7 +15,7 @@ body {
 
 .welcome-message {
     font-family: "EB Garamond";
-    color: #1b1c1c;
+    color: #3f3430;
 }
 
 .enter-button {
@@ -27,4 +27,8 @@ body {
         /* background-color: #734225;
         border-color: #734225; */
     /* } */
+}
+
+.no-border .MuiOutlinedInput-notchedOutline {
+    border: none;
 }
