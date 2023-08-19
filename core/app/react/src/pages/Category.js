@@ -81,12 +81,12 @@ export default function Category({ categories, category }) {
           onChange={(event, newVal) => setSelected(newVal)}
         />
         <TableContainer component={Paper} sx={stylesTableContainer}>
-          <Table sx={{ minWidth: 1000, minHeight: 400 }}>
+          <Table sx={{ minWidth: 1000, minHeight: 400 }} fontFamily = "times new roman">
             <TableHead>
               <TableRow>
-                <TableCell>Entries</TableCell>
-                <TableCell align="right">Sentiment</TableCell>
-                <TableCell align="right">Date</TableCell>
+                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }}>Entries</TableCell>
+                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Sentiment</TableCell>
+                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Date</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

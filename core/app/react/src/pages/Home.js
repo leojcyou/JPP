@@ -50,7 +50,7 @@ export default function Home() {
     <div class="container">
         <Typography 
           variant="h1"
-          class="welcome-message">
+          class="welcome-message" sx={{fontSize: "36px", fontFamily: "times new roman", fontWeight: "500", color: "#3f3430", padding: "50px"}}>
             Welcome, {user.displayName ? user.displayName : "Person"}
         </Typography>
         <TextField 

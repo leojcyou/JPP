@@ -30,7 +30,7 @@ export default function TopNavBar({ categories }) {
                     sx={{ 
                         // flexGrow: 1, 
                         fontFamily: "Times New Roman",
-                        fontWeight: 600,
+                        fontWeight: 400,
                         bold : true,
                         fontSize: '24px',
                         color: '#3f3430',
