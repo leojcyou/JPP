@@ -1,22 +1,38 @@
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import WebFont from 'webfontloader';
+
 import Home from './pages/Home';
 import Category from './pages/Category';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import TopNavBar from './components/TopNavBar';
 
 function App() {
   const allCategories = ["career", "academics", "interpersonal relationships", "personal development"]
   
+  useEffect(() => {
+    WebFont.load({
+      google: {
+        families: ['EB Garamond']
+      }
+    });
+  }, []);
+
   return (
-    <BrowserRouter>
-      <Routes>
+    <div>
+      <BrowserRouter>
+        <TopNavBar categories={allCategories} />
+        <Routes>
+          <Route
+            path="/"
+            element={<Home />}
+          />
+          { allCategories.map((category) => <Route path={`/${category.replaceAll(" ", "-")}`} element={<Category categories={allCategories} category={category} />} key={category} />) }
         <Route
-          path="/"
-          element={<Home />}
-        />
-        { allCategories.map((category) => <Route path={`/${category.replaceAll(" ", "-")}`} element={<Category categories={allCategories} category={category} />} key={category} />) }
-      </Routes>
-    </BrowserRouter>
+          path="*"
+          element={<p>404 not found</p>}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

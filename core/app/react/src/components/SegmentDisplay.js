@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Button, Input } from '@mui/material';
 
-export default function SegmentDisplay({ segment, segmentID, removeSeg }) {
+export default function SegmentDisplay({ segment, segmentID, removeSeg, updateSeg }) {
     const [paragraphText, setParagraphText] = useState(segment.text)
     const [editMode, setEditMode] = useState(false);
     

@@ -4,7 +4,7 @@ import { Dropdown } from '@mui/base';
 import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
 import { db } from '../config/firebase';
-import { getDocs, deleteDoc, collection, doc, query, where } from "firebase/firestore"
+import { getDocs, deleteDoc, updateDoc, collection, doc, query, where } from "firebase/firestore"
 
 export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([]);
