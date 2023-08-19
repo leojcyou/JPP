@@ -16,7 +16,7 @@ const stylesTableContainer = {
 
 export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([]);
-  
+
   const notesCollectionRef = collection(db, "notes");
 
   const getNotesList = async () => {
@@ -58,15 +58,28 @@ export default function Category({ categories, category }) {
   const rows = [
     createData('pain', '10/10/2021', 'sad'),
   ];
-  
+
   return (
     <div class = "container">
 
       <Typography variant="h5" fontFamily="times new roman" color = "#3f3430" padding = "50px">{category}</Typography>
       <Dropdown defaultOpen></Dropdown>
-      <Typography>{selected}</Typography>
+
 
       <Box>
+      <Autocomplete
+          multiple
+          options={['Sadness', 'Joy', 'Love', 'Anger', 'Fear', 'Surprise']}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="Filter by sentiment below:"
+              placeholder="all"
+            />
+          )}
+          onChange={(event, newVal) => setSelected(newVal)}
+        />
         <TableContainer component={Paper} sx={stylesTableContainer}>
           <Table sx={{ minWidth: 1000, minHeight: 400 }}>
             <TableHead>
@@ -104,34 +117,22 @@ export default function Category({ categories, category }) {
         backgroundColor: "lightblue",
         overflow: "auto",
         justifyContent: 'center',
-        alignItems: 'center'  
+        alignItems: 'center'
       }}>
-        <Autocomplete
-          multiple
-          options={['anger', 'sadness']}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Filter by sentiment below:"
-              placeholder="all"
-            />
-          )}
-          onChange={(event, newVal) => setSelected(newVal)}
-        />
+
         { segments.filter((segment) => {
           if (selected.length === 0)
             return true;
-            
+
           for (let i = 0; i < selected.length; i++) {
             if (selected[i] === segment.sentiment)
               return true;
           }
 
           return false;
-        }).map((filteredSegment) => <SegmentDisplay 
-          segment={filteredSegment} 
-          segmentID={filteredSegment.id} 
+        }).map((filteredSegment) => <SegmentDisplay
+          segment={filteredSegment}
+          segmentID={filteredSegment.id}
           removeSeg={deleteSegment}
           updateSeg={updateSegment}/>
         )}

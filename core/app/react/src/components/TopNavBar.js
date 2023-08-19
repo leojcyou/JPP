@@ -11,7 +11,7 @@ export default function TopNavBar({ categories }) {
     const handleLogOut = async () => {
         try {
             // await logout(); // FOR SOME REASON THIS DOES NOT WORK
-            nav('/');
+            nav('/Signin');
             console.log('You are logged out')
         } catch (e) {
             console.log(e.message);
@@ -24,7 +24,7 @@ export default function TopNavBar({ categories }) {
             style={{ backgroundColor: '#f4f1ec' }}>
             <Toolbar>
                 <Button 
-                    onClick={() => nav(`/`)}
+                    onClick={() => nav("/Home")}
                     variant="h6" 
                     component="div" 
                     sx={{ 
@@ -58,7 +58,7 @@ export default function TopNavBar({ categories }) {
                 <Button
                     sx={{ 
                         color: '#3f3430', 
-                        fontFamily: 'EB Garamond',  
+                        fontFamily: 'times new roman',
                         fontSize: '16px',
                         fontWeight: 600,
                         marginLeft: '1%'
