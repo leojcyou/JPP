@@ -6,9 +6,9 @@ from tensorflow import keras
 print('HLELLI;SAJFDJKAIROWE;FJDSLKZJ')
 
 # Load and preprocess the data
-train_df = pd.read_csv('data/train.csv')
-val_df = pd.read_csv('data/val.csv')
-test_df = pd.read_csv('data/test.csv')
+train_df = pd.read_csv('C:/Users/Leoyo/OneDrive/Documents/Code/Personal Projects/JPP/core/app/app/Sentiment Model/data/train.csv')
+val_df = pd.read_csv('C:/Users/Leoyo/OneDrive/Documents/Code/Personal Projects/JPP/core/app/app/Sentiment Model/data/val.csv')
+test_df = pd.read_csv('C:/Users/Leoyo/OneDrive/Documents/Code/Personal Projects/JPP/core/app/app/Sentiment Model/data/test.csv')
 
 train_text = train_df.text.to_numpy()
 train_labels = train_df.label.to_numpy()
@@ -36,7 +36,7 @@ max_length = 40
 train_padded = tf.keras.preprocessing.sequence.pad_sequences(train_sequences, maxlen=max_length, padding='post', truncating='post')
 val_padded = tf.keras.preprocessing.sequence.pad_sequences(val_sequences, maxlen=max_length, padding='post', truncating='post')
 test_padded = tf.keras.preprocessing.sequence.pad_sequences(test_sequences, maxlen=max_length, padding='post', truncating='post')
-
+print(train_padded[1])
 # Create a GRU model
 model = keras.models.Sequential()
 model.add(keras.layers.Embedding(input_dim=len(tokenizer.word_index)+1, output_dim=32, input_length=max_length))

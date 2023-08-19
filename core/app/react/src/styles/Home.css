@@ -14,7 +14,7 @@
 }
 
 .welcome-message {
-    font-family: "EB Garamond";
+    font-family: "times new roman";
     color: #3f3430;
 }
 
@@ -32,3 +32,8 @@
 .no-border .MuiOutlinedInput-notchedOutline {
     border: none;
 }
+
+.remove-outline {
+    outline: none !important;
+    border: none !important;
+  }

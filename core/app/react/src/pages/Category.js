@@ -5,6 +5,14 @@ import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
 import { db } from '../config/firebase';
 import { getDocs, deleteDoc, updateDoc, collection, doc, query, where } from "firebase/firestore"
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
+
+
+// import '../styles/Category.css';
+const stylesTableContainer = {
+  borderRadius: '15px', // Adjust the radius as needed
+  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
+};
 
 export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([]);
@@ -13,13 +21,14 @@ export default function Category({ categories, category }) {
 
   const getNotesList = async () => {
     try {
-      const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe'));
+      // const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe')); //TODO: CHANGE THIS LATER
       const data = await getDocs(notesCollectionRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
       setSegments(filteredData);
+      console.log(data)
     } catch (err) {
       console.error(err);
     }
@@ -29,7 +38,7 @@ export default function Category({ categories, category }) {
   // useEffect here to pull from db and place into segments
   useEffect(() => {
     getNotesList();
-  }, [segments])
+  }, [])
 
   const deleteSegment = async (id) => {
     const notesDoc = doc(db, "notes", id);
@@ -41,12 +50,51 @@ export default function Category({ categories, category }) {
     await updateDoc(notesDoc, { text: paragraph });
   };
 
+
+
+  function createData(note, date, sentiment) {
+    return { note, date, sentiment};
+  }
+  const rows = [
+    createData('pain', '10/10/2021', 'sad'),
+  ];
+  
   return (
-    <div>
-      <Typography variant="h6">Category chosen:</Typography>
-      <Typography variant="h5">{category}</Typography>
+    <div class = "container">
+
+      <Typography variant="h5" fontFamily="times new roman" color = "#3f3430" padding = "50px">{category}</Typography>
       <Dropdown defaultOpen></Dropdown>
-      <Typography>state is {selected}</Typography>
+      <Typography>{selected}</Typography>
+
+      <Box>
+        <TableContainer component={Paper} sx={stylesTableContainer}>
+          <Table sx={{ minWidth: 1000, minHeight: 400 }}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Entries</TableCell>
+                <TableCell align="right">Sentiment</TableCell>
+                <TableCell align="right">Date</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow key={row.note}>
+                  <TableCell component="th" scope="row">
+                    {row.note}
+                  </TableCell>
+                  <TableCell align="right">{row.sentiment}</TableCell>
+                  <TableCell align="right">{row.date}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+
+
+
+
+
       <Box sx={{
         borderRadius: '10px', // Set the border radius
         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
