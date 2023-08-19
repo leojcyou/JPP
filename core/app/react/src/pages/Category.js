@@ -38,14 +38,16 @@ export default function Category({ categories, category }) {
   // useEffect here to pull from db and place into segments
   useEffect(() => {
     getNotesList();
-  }, [])
+  }, [segments])
 
   const deleteSegment = async (id) => {
+    console.log("deleting ", id)
     const notesDoc = doc(db, "notes", id);
     await deleteDoc(notesDoc);
   };
 
   const updateSegment = async (id, paragraph) => {
+    console.log("updating ", id)
     const notesDoc = doc(db, "notes", id);
     await updateDoc(notesDoc, { text: paragraph });
   };
@@ -90,8 +92,6 @@ export default function Category({ categories, category }) {
           </Table>
         </TableContainer>
       </Box>
-
-
 
 
 
