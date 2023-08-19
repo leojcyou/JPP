@@ -6,9 +6,9 @@ from tensorflow import keras
 print('HLELLI;SAJFDJKAIROWE;FJDSLKZJ')
 
 # Load and preprocess the data
-train_df = pd.read_csv('C:/Users/Leoyo/OneDrive/Documents/Code/Personal Projects/JPP/core/app/app/Sentiment Model/data/train.csv')
-val_df = pd.read_csv('C:/Users/Leoyo/OneDrive/Documents/Code/Personal Projects/JPP/core/app/app/Sentiment Model/data/val.csv')
-test_df = pd.read_csv('C:/Users/Leoyo/OneDrive/Documents/Code/Personal Projects/JPP/core/app/app/Sentiment Model/data/test.csv')
+train_df = pd.read_csv('C:/Users/qianx/Desktop/Coding/OLD_JPP/core/app/app/sentiment_model/data/train.csv')
+val_df = pd.read_csv('C:/Users/qianx/Desktop/Coding/OLD_JPP/core/app/app/sentiment_model/data/val.csv')
+test_df = pd.read_csv('C:/Users/qianx/Desktop/Coding/OLD_JPP/core/app/app/sentiment_model/data/test.csv')
 
 train_text = train_df.text.to_numpy()
 train_labels = train_df.label.to_numpy()
@@ -46,10 +46,10 @@ model.summary()
 
 # Compile and train the GRU model
 loss = keras.losses.SparseCategoricalCrossentropy()
-optim = keras.optimizers.Adam(learning_rate=0.001)
+optim = keras.optimizers.Adam(learning_rate=2e-4)
 metrics = ['accuracy']
 model.compile(loss=loss, optimizer=optim, metrics=metrics)
-model.fit(train_padded, train_labels, epochs=20, verbose=2, validation_data=(val_padded, val_labels))
+model.fit(train_padded, train_labels, epochs=40, verbose=2, validation_data=(val_padded, val_labels))
 
 # Predicting on test data
 predictions = model.predict(test_padded)

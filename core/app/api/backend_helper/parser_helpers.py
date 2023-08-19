@@ -43,16 +43,16 @@ def preprocessForML(sentencesList):
     train_text = train_df.text.to_numpy()
 
     numpied = np.array(sentencesList)
-    print("numpied", numpied)
-    print("typeof numpied", type(numpied))
+    # print("numpied", numpied)
+    # print("typeof numpied", type(numpied))
 
     tokenizer = tf.keras.preprocessing.text.Tokenizer()
     tokenizer.fit_on_texts(train_text)
     sequences = tokenizer.texts_to_sequences(numpied)
-    print("sequenced", sequences)
+    # print("sequenced", sequences)
 
     padded = tf.keras.preprocessing.sequence.pad_sequences(sequences, maxlen=40, padding='post', truncating='post')
-    print("padded", padded)
+    # print("padded", padded)
 
     return padded
 
