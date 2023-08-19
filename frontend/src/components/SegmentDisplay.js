@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
-export default function SegmentDisplay({ segment }) {
+export default function SegmentDisplay({ segment, segmentID, removeSeg }) {
     const colours = {
         career: "lightpink",
-        
     }
 
     return (
@@ -20,6 +19,11 @@ export default function SegmentDisplay({ segment }) {
             marginTop: '2%',
             marginBottom: '2%'  
         }}>{segment.text}</Box>
+        <Button 
+            variant="outlined"
+            size="small"
+            onClick={() => removeSeg(segmentID)}
+        >Delete Note</Button>
         </div>
     );
 }

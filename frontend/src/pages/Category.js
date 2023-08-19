@@ -4,21 +4,10 @@ import { Dropdown } from '@mui/base';
 import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
 import { db } from '../config/firebase';
-import { getDocs, collection } from "firebase/firestore"
+import { getDocs, deleteDoc, collection, doc } from "firebase/firestore"
 
 export default function Category({ categories, category }) {
-  const [ segments, setSegments ] = useState([
-    {
-      text: "that bitch carol at work was so annoying",
-      timestamp: 123456,
-      sentiment: "anger"
-    },
-    {
-      text: "i wish i was better at among us",
-      timestamp: 654321,
-      sentiment: "sadness"
-    },
-  ]);
+  const [ segments, setSegments ] = useState([]);
   
   const notesCollectionRef = collection(db, "notes");
 
@@ -40,6 +29,11 @@ export default function Category({ categories, category }) {
   useEffect(() => {
     getMovieList();
   }, [segments])
+
+  const deleteSegment = async (id) => {
+    const notesDoc = doc(db, "notes", id);
+    await deleteDoc(notesDoc);
+  };
 
   return (
     <div>
@@ -81,7 +75,7 @@ export default function Category({ categories, category }) {
           }
 
           return false;
-        }).map((filteredSegment) => <SegmentDisplay segment={filteredSegment}/>) }
+        }).map((filteredSegment) => <SegmentDisplay segment={filteredSegment} segmentID={filteredSegment.id} removeSeg={deleteSegment}/>) }
       </Box>
     </div>
   );
