@@ -13,7 +13,7 @@ const stylesContainer = {
 
 export default function Home() {
   const [note, setNote] = useState("");
-  const { user, logout } = UserAuth();
+  const { user } = UserAuth();
   
   console.log("userauth: ", UserAuth())
 
@@ -51,7 +51,7 @@ export default function Home() {
         <Typography 
           variant="h1"
           class="welcome-message">
-            Welcome, {user.displayName}
+            Welcome, {user.displayName ? user.displayName : "Person"}
         </Typography>
         <TextField 
             variant="outlined"
