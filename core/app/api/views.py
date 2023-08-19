@@ -31,7 +31,7 @@ def classify(request):
     print("parsedSentences are", parsedSentences)
     print("categoriesList is", categoriesList)
 
-    model = tf.keras.models.load_model("model.keras")
+    model = tf.keras.models.load_model("C:/Users/qianx/Desktop/Coding/OLD_JPP/core/app/app/sentiment_model/model2.keras")
     model.summary()
 
     classes = ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']

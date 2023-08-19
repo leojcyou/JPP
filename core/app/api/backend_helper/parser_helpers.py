@@ -39,7 +39,7 @@ def separateIntoSentences(paragraph: str, max_words_per_sentence=40):
     return sentences, new_sentences
 
 def preprocessForML(sentencesList):
-    train_df = pd.read_csv('C:/Users/qianx/Desktop/Coding/JPP/core/app/api/backend_helper/data/train.csv')
+    train_df = pd.read_csv('C:/Users/qianx/Desktop/Coding/OLD_JPP/core/app/api/backend_helper/data/train.csv')
     train_text = train_df.text.to_numpy()
 
     numpied = np.array(sentencesList)
