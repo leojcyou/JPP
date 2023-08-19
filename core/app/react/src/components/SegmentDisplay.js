@@ -17,6 +17,7 @@ export default function SegmentDisplay({ segment, segmentID, removeSeg, updateSe
     return (
         <div>
             <Box sx={{
+            
                     borderRadius: '10px', // Set the border radius
                     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
                     padding: '20px', // Add some padding for content

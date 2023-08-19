@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import "../styles/TopNavBar.css";
+import { alignProperty } from '@mui/material/styles/cssUtils';
 
 export default function TopNavBar({ categories }) {
     const nav = useNavigate();
@@ -12,27 +13,33 @@ export default function TopNavBar({ categories }) {
             position="static"
             style={{ backgroundColor: '#f4f1ec' }}>
             <Toolbar>
-                <Typography 
+                <Button 
+                    onClick={() => nav(`/`)}
                     variant="h6" 
                     component="div" 
                     sx={{ 
-                        flexGrow: 1, 
-                        fontFamily: "EB Garamond",
+                        // flexGrow: 1, 
+                        fontFamily: "Times New Roman",
                         fontWeight: 600,
-                        color: '#3f3430'
+                        bold : true,
+                        fontSize: '24px',
+                        color: '#3f3430',
+                        justifyContent:'left'
                     }}
                 >
                     Journal++
-                </Typography>
+                </Button>
+                
                 { categories.map((category) => 
                     <Button 
                         onClick={() => nav(`/${category.replaceAll(" ", "-")}`)}
                         sx={{ 
                             color: '#3f3430', 
-                            fontFamily: 'EB Garamond',  
-                            fontSize: '16px',
-                            fontWeight: 600,
-                            marginLeft: '1%'
+                            fontFamily: 'times new roman',  
+                            // fontSize: '16px',
+                            fontWeight: 300,
+                            // marginLeft: '1%',
+                            justifyContent:'right'
                         }}
                         key={category}
                     >

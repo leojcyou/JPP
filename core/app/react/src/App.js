@@ -7,12 +7,12 @@ import Category from './pages/Category';
 import TopNavBar from './components/TopNavBar';
 
 function App() {
-  const allCategories = ["career", "academics", "interpersonal relationships", "personal development"]
+  const allCategories = ["Career", "Academics", "Interpersonal Relationships", "Personal Development"]
   
   useEffect(() => {
     WebFont.load({
       google: {
-        families: ['EB Garamond']
+        families: ['Times New Roman', 'sans-serif']
       }
     });
   }, []);

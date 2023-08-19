@@ -5,6 +5,11 @@ import { collection, addDoc } from "firebase/firestore";
 
 import '../styles/Home.css';
 
+const stylesContainer = {
+  borderRadius: '15px', // Adjust the radius as needed
+  boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
+};
+
 export default function Home() {
   const [note, setNote] = useState("");
   
@@ -54,12 +59,12 @@ export default function Home() {
               backgroundColor: '#f4f1ec',
               marginTop: '2%',
               marginBottom: '2%',
-              borderRadius: '5px'
+              borderRadius: '25px'
+              
             }}
             inputProps={{ 
               style: { 
-                fontSize: '20px',
-                border: 'none'
+                fontSize: '24px',
               }
             }}
             rows={12}
