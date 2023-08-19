@@ -4,7 +4,7 @@ import { Dropdown } from '@mui/base';
 import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
 import { db } from '../config/firebase';
-import { getDocs, deleteDoc, collection, doc, query, where } from "firebase/firestore"
+import { getDocs, deleteDoc, updateDoc, collection, doc, query, where } from "firebase/firestore"
 
 export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([]);
@@ -13,13 +13,14 @@ export default function Category({ categories, category }) {
 
   const getNotesList = async () => {
     try {
-      const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe'));
+      // const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe')); //TODO: CHANGE THIS LATER
       const data = await getDocs(notesCollectionRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
       setSegments(filteredData);
+      console.log(data)
     } catch (err) {
       console.error(err);
     }
