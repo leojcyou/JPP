@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Typography, Box, Grid } from '@mui/material';
+import { Typography, Box, Grid, Autocomplete, TextField } from '@mui/material';
+import { Dropdown } from '@mui/base';
 import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
 
-export default function Category({ category }) {
+export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([
     {
       text: "that bitch carol at work was so annoying",
@@ -16,13 +17,16 @@ export default function Category({ category }) {
       sentiment: "sadness"
     },
   ]);
+  const [ selected, setSelected ] = useState([]);
 
   // useEffect here to pull from db and place into segments
 
   return (
     <div>
       <Typography variant="h6">Category chosen:</Typography>
-      <Typography variant="h6">{category}</Typography>
+      <Typography variant="h5">{category}</Typography>
+      <Dropdown defaultOpen></Dropdown>
+      <Typography>state is {selected}</Typography>
       <Box sx={{
         borderRadius: '10px', // Set the border radius
         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
@@ -34,7 +38,30 @@ export default function Category({ category }) {
         justifyContent: 'center',
         alignItems: 'center'  
       }}>
-        { segments.map((segment) => <SegmentDisplay segment={segment}/>) }
+        <Autocomplete
+          multiple
+          options={['anger', 'sadness']}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="Filter by sentiment below:"
+              placeholder="all"
+            />
+          )}
+          onChange={(event, newVal) => setSelected(newVal)}
+        />
+        { segments.filter((segment) => {
+          if (selected.length === 0)
+            return true;
+            
+          for (let i = 0; i < selected.length; i++) {
+            if (selected[i] === segment.sentiment)
+              return true;
+          }
+
+          return false;
+        }).map((filteredSegment) => <SegmentDisplay segment={filteredSegment}/>) }
       </Box>
     </div>
   );
