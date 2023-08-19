@@ -4,15 +4,16 @@ import { Dropdown } from '@mui/base';
 import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
 import { db } from '../config/firebase';
-import { getDocs, deleteDoc, collection, doc } from "firebase/firestore"
+import { getDocs, deleteDoc, collection, doc, query, where } from "firebase/firestore"
 
 export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([]);
   
   const notesCollectionRef = collection(db, "notes");
 
-  const getMovieList = async () => {
+  const getNotesList = async () => {
     try {
+      const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe'));
       const data = await getDocs(notesCollectionRef);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
@@ -27,12 +28,17 @@ export default function Category({ categories, category }) {
 
   // useEffect here to pull from db and place into segments
   useEffect(() => {
-    getMovieList();
+    getNotesList();
   }, [segments])
 
   const deleteSegment = async (id) => {
     const notesDoc = doc(db, "notes", id);
     await deleteDoc(notesDoc);
+  };
+
+  const updateSegment = async (id, paragraph) => {
+    const notesDoc = doc(db, "notes", id);
+    await updateDoc(notesDoc, { text: paragraph });
   };
 
   return (
@@ -75,7 +81,12 @@ export default function Category({ categories, category }) {
           }
 
           return false;
-        }).map((filteredSegment) => <SegmentDisplay segment={filteredSegment} segmentID={filteredSegment.id} removeSeg={deleteSegment}/>) }
+        }).map((filteredSegment) => <SegmentDisplay 
+          segment={filteredSegment} 
+          segmentID={filteredSegment.id} 
+          removeSeg={deleteSegment}
+          updateSeg={updateSegment}/>
+        )}
       </Box>
     </div>
   );
