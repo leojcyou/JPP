@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Box, Grid } from '@mui/material';
 import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
+import { db } from '../config/firebase';
+import { getDocs, collection } from "firebase/firestore"
 
 export default function Category({ category }) {
   const [ segments, setSegments ] = useState([
@@ -16,8 +18,26 @@ export default function Category({ category }) {
       sentiment: "sadness"
     },
   ]);
+  
+  const notesCollectionRef = collection(db, "notes");
+
+  const getMovieList = async () => {
+    try {
+      const data = await getDocs(notesCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setSegments(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // useEffect here to pull from db and place into segments
+  useEffect(() => {
+    getMovieList();
+  }, [segments])
 
   return (
     <div>
