@@ -16,6 +16,16 @@ export default function Home() {
   const sentiment = "sad"
 
   const handleSubmit = async () => {
+    const response = await fetch("http://127.0.0.1:8000/classification/", {
+      method: "POST",
+      body: JSON.stringify({
+        text: note,
+      })
+    });
+    const json = response.json();
+
+    console.log(json);
+
     try {
       await addDoc(notesCollectionRef, {
         userName: username,
