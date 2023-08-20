@@ -17,8 +17,8 @@ def get_response(text: str):
 
 def getAllClassifications(sentences: list):
     classifications = []
+    
     for sentence in sentences:
-        print("sentence: " ,sentence)
         resp = get_response(sentence)
         classifications.append(resp[1:])
 

@@ -1,66 +1,13 @@
 import React, { useState } from 'react';
-import { Box, Button, Input, TableRow, TableCell, Typography } from '@mui/material';
+import { IconButton, Icon, Button, Input, TableRow, TableCell, Typography } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 export default function SegmentDisplay({ segment, updateSeg, removeSeg }) {
     const [paragraphText, setParagraphText] = useState(segment.text)
     const [editMode, setEditMode] = useState(false);
     
-//     const handleEditClick = () => {
-//         setEditMode(true);
-//     };
-    
-//     const handleSaveClick = () => {
-//         setEditMode(false);
-//         updateSeg(segmentID, paragraphText)
-//     };
-
-//     return (
-//         <div>
-//             {/* <Box sx={{
-//                     borderRadius: '10px', // Set the border radius
-//                     boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
-//                     padding: '20px', // Add some padding for content
-//                     width: '95%',
-//                     maxHeight: 600,
-//                     backgroundColor: "white",
-//                     overflow: "auto",
-//                     marginTop: '2%',
-//                     marginBottom: '2%'  
-//                 }}> */}
-//                 {editMode ? (
-//                     <Input 
-//                         value={paragraphText}
-//                         onChange={(e) => setParagraphText(e.target.value)}>
-//                     </Input>
-//                 ) : (
-//                     <div>
-//                         {paragraphText}
-//                     </div>
-//                 )}
-//             {/* </Box> */}
-            
-//             <Button 
-//                 variant="outlined"
-//                 size="small"
-//                 onClick={() => removeSeg(segmentID)}
-//             >Delete Note</Button>
-            
-//             {editMode ? (
-//                 <Button 
-//                     variant="outlined"
-//                     size="small"
-//                     onClick={handleSaveClick}
-//                 >Save Note</Button>
-//                 ) : (
-//                 <Button 
-//                     variant="outlined"
-//                     size="small"
-//                     onClick={handleEditClick}
-//                 >Update Note</Button>
-//                 )
-//             }
-//         </div>
-//     );
     return (
         <TableRow key={segment.text}>
         <TableCell component="th" scope="row">
@@ -70,22 +17,27 @@ export default function SegmentDisplay({ segment, updateSeg, removeSeg }) {
                     <Input 
                         value={paragraphText}
                         onChange={(e) => setParagraphText(e.target.value)}
+                        sx={{ width: '90%' }}
                     /> 
-                    <Button onClick={() => {
+                    <IconButton onClick={() => {
                         updateSeg(segment.id, paragraphText)
                         setEditMode(false)
                     }}>
-                        Submit
-                    </Button>
+                        <ArrowForwardIcon />
+                    </IconButton>
                 </div> )}           
         </TableCell>
         <TableCell align="right">{segment.sentiment}</TableCell>
-        <TableCell align="right">{segment.timestamp}</TableCell>
-        <TableCell align="right">
-          <Button onClick={() => setEditMode(!editMode)}>{editMode === true ? "Cancel" : "Edit"}</Button>  
+        <TableCell align="right">{new Date(segment.timestamp * 1000).toLocaleDateString("en-GB")}</TableCell>
+        <TableCell align="center">
+            <IconButton onClick={() => setEditMode(!editMode)}>
+                <EditIcon />
+            </IconButton>  
         </TableCell>
-        <TableCell align="right">
-          <Button onClick={() => removeSeg(segment.id)}>Delete note</Button>
+        <TableCell align="center">
+          <IconButton onClick={() => removeSeg(segment.id)}>
+            <DeleteForeverIcon />
+          </IconButton>
         </TableCell>
       </TableRow>
     );

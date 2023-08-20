@@ -14,6 +14,13 @@ const stylesTableContainer = {
   backgroundColor:'#f4f1ec',
 };
 
+const stylesTableHead = { 
+  fontSize: "18px", 
+  color: "#3f3430", 
+  fontFamily: "Times new roman",  
+  fontWeight: 800
+}
+
 export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([]);
   const { user } = UserAuth();
@@ -52,7 +59,7 @@ export default function Category({ categories, category }) {
   useEffect(() => {
     console.log("useEffect called");
     getNotesList();
-  }, [])
+  }, [category])
 
   const deleteSegment = async (id) => {
     console.log("deleting ", id)
@@ -89,7 +96,7 @@ export default function Category({ categories, category }) {
   };
 
   return (
-    <div class = "container">
+    <div class="container">
       <Typography 
         fontSize="50px" 
         fontFamily="times new roman" 
@@ -123,17 +130,27 @@ export default function Category({ categories, category }) {
           onChange={(event, newVal) => setSelected(newVal)}
 
         />
-        <TableContainer component={Paper} sx={stylesTableContainer}>
-          <Table sx={{ minWidth: 1000, minHeight: 400 }} fontFamily = "times new roman">
+        <TableContainer 
+          component={Paper} 
+
+          sx={stylesTableContainer}
+        >
+          <Table 
+            sx={{ 
+              minWidth: 1000,
+              overflow: "auto"
+            }} 
+            fontFamily="times new roman"
+          >
             <TableHead>
               <TableRow>
-                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }}>Entries</TableCell>
-                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Sentiment</TableCell>
-                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Date</TableCell>
-                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">
+                <TableCell sx={stylesTableHead}>Entries</TableCell>
+                <TableCell sx={stylesTableHead} align="right">Sentiment</TableCell>
+                <TableCell sx={stylesTableHead} align="right">Date</TableCell>
+                <TableCell sx={stylesTableHead} align="right">
                   Edit
                 </TableCell>
-                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">
+                <TableCell sx={stylesTableHead} align="right">
                   Remove
                 </TableCell>
               </TableRow>
