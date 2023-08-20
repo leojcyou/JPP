@@ -124,7 +124,6 @@ export default function Category({ categories, category }) {
               {...params}
               variant="standard"
               label="Filter by sentiment below:"
-              placeholder="all"
             />
           )}
           onChange={(event, newVal) => setSelected(newVal)}

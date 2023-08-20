@@ -29,12 +29,12 @@ export default function SegmentDisplay({ segment, updateSeg, removeSeg }) {
         </TableCell>
         <TableCell align="right">{segment.sentiment}</TableCell>
         <TableCell align="right">{new Date(segment.timestamp * 1000).toLocaleDateString("en-GB")}</TableCell>
-        <TableCell align="center">
+        <TableCell align="right">
             <IconButton onClick={() => setEditMode(!editMode)}>
                 <EditIcon />
             </IconButton>  
         </TableCell>
-        <TableCell align="center">
+        <TableCell align="right">
           <IconButton onClick={() => removeSeg(segment.id)}>
             <DeleteForeverIcon />
           </IconButton>

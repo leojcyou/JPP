@@ -54,6 +54,10 @@ def classify(request):
     print("Here are the findings:")
     
     for each in ret:
-        print(each["text"], "---", "category:", each["category"], "sentiment:", each["sentiment"])
+        print(each["text"], "\t category:", each["category"], "\t sentiment:", each["sentiment"])
+    
+    print()
+    print()
+    print()
 
     return JsonResponse({ "data": ret })
