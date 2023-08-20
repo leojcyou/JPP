@@ -12,7 +12,6 @@ import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper
 const stylesTableContainer = {
   borderRadius: '15px', // Adjust the radius as needed
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
-  backgroundColor:'#f4f1ec',
 };
 
 export default function Category({ categories, category }) {
@@ -65,23 +64,13 @@ export default function Category({ categories, category }) {
   return (
     <div class = "container">
 
-      <Typography fontSize = "50px" fontFamily="times new roman" color = "#3f3430" padding = "30px">{category}</Typography>
-      <Dropdown defaultOpen></Dropdown>
+      <Typography fontSize = "50px" fontFamily="times new roman" color = "#3f3430" padding = "50px">{category}</Typography>
+      <Dropdown defaultOpen sx={{ margin: '10px' }}></Dropdown>
 
 
       <Box>
       <Autocomplete
           multiple
-          sx={{
-            padding: '10px',
-            '& .MuiInput-underline:before': {
-              borderBottomColor: '#3f3430',
-            },
-            '& .MuiInput-underline:after': {
-              borderBottomColor: '#6D712E',
-
-          },
-          }}
           options={['Sadness', 'Joy', 'Love', 'Anger', 'Fear', 'Surprise']}
           renderInput={(params) => (
             <TextField
@@ -92,7 +81,6 @@ export default function Category({ categories, category }) {
             />
           )}
           onChange={(event, newVal) => setSelected(newVal)}
-
         />
         <TableContainer component={Paper} sx={stylesTableContainer}>
           <Table sx={{ minWidth: 1000, minHeight: 400 }} fontFamily = "times new roman">

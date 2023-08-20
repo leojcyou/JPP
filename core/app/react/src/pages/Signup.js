@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../contexts/AuthContext';
-import { Container, Typography, TextField, Button } from '@mui/material';
-
+import { Container, Typography, TextField, Button, Card, CardContent } from '@mui/material';
+import '../styles/Category.css';
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,7 +24,14 @@ const Signup = () => {
   };
 
   return (
+      <div className="container">
     <Container maxWidth="sm" sx={{ marginTop: '16px', textAlign: 'center' }}>
+      <Card variant="outlined" sx={{backgroundColor: '#f3f1ec',
+        paddingRight: '100px',
+        paddingLeft: '100px',
+        paddingBottom: '60px',
+        paddingTop: '60px',}}>
+        <CardContent>
       <Typography variant="h4" component="h1" fontFamily="Times New Roman">
         Sign up for a free account
       </Typography>
@@ -60,15 +67,17 @@ const Signup = () => {
         />
         <Button
           variant="contained"
-          color="primary"
-          fullWidth
-          style={{ marginTop: '16px' }}
+          fullwidth
+          sx={{ marginTop: '16px', fontFamily: "times new roman", backgroundColor:"#6D712E", color:"#FFFFFF",}}
           onClick={handleSubmit}
         >
           Sign Up
         </Button>
       </form>
+        </CardContent>
+      </Card>
     </Container>
+      </div>
   );
 };
 
