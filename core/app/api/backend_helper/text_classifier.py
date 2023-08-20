@@ -20,7 +20,6 @@ def getAllClassifications(sentences: list):
     for sentence in sentences:
         print("sentence: " ,sentence)
         resp = get_response(sentence)
-        classifications.append(resp)
-
+        classifications.append(resp[1:])
 
     return classifications

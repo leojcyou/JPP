@@ -6,7 +6,7 @@ import SegmentDisplay from '../components/SegmentDisplay';
 import { db } from '../config/firebase';
 import { getDocs, deleteDoc, updateDoc, collection, doc, query, where } from "firebase/firestore"
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
-
+import { UserAuth } from '../contexts/AuthContext';
 
 // import '../styles/Category.css';
 const stylesTableContainer = {
@@ -17,6 +17,7 @@ const stylesTableContainer = {
 
 export default function Category({ categories, category }) {
   const [ segments, setSegments ] = useState([]);
+  const { user } = UserAuth();
 
   const notesCollectionRef = collection(db, "notes");
 
@@ -24,13 +25,27 @@ export default function Category({ categories, category }) {
     try {
       // const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe')); //TODO: CHANGE THIS LATER
       const data = await getDocs(notesCollectionRef);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
+
+      // console.log("data is", data.docs.data());
+
+      data.docs.forEach((each) => {
+        console.log("each data", each.data())
+      })
+
+      const filteredData = data.docs.filter((each) => each.data().userName === user.email && each.data().category === category)
+        .map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })
+      );
+      
+      console.log("filteredData is", filteredData);
+
       setSegments(filteredData);
-      console.log(data)
-    } catch (err) {
+      // console.log(data)
+    } 
+    
+    catch (err) {
       console.error(err);
     }
   };
@@ -101,6 +116,7 @@ export default function Category({ categories, category }) {
                 <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }}>Entries</TableCell>
                 <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Sentiment</TableCell>
                 <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Date</TableCell>
+                <Button></Button>
               </TableRow>
             </TableHead>
             <TableBody>

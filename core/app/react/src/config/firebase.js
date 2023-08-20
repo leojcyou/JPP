@@ -12,14 +12,24 @@ import {getAuth} from "firebase/auth"
 //   measurementId: "G-Y5SKF7YCWX"
 // };
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDo_gmrWKND2AYlVwPmbtUZPgjgEarhErw",
+//   authDomain: "test-e1ea2.firebaseapp.com",
+//   projectId: "test-e1ea2",
+//   storageBucket: "test-e1ea2.appspot.com",
+//   messagingSenderId: "916003214021",
+//   appId: "1:916003214021:web:2c2364fb424e68112d16ac",
+//   measurementId: "G-HXMV5VMP4X"
+// };
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDo_gmrWKND2AYlVwPmbtUZPgjgEarhErw",
-  authDomain: "test-e1ea2.firebaseapp.com",
-  projectId: "test-e1ea2",
-  storageBucket: "test-e1ea2.appspot.com",
-  messagingSenderId: "916003214021",
-  appId: "1:916003214021:web:2c2364fb424e68112d16ac",
-  measurementId: "G-HXMV5VMP4X"
+  apiKey: "AIzaSyDy04Wd6hZ49WZ1a6yq3MfDDoBlgi0Rhkw",
+  authDomain: "qianxugoat.firebaseapp.com",
+  projectId: "qianxugoat",
+  storageBucket: "qianxugoat.appspot.com",
+  messagingSenderId: "46121101142",
+  appId: "1:46121101142:web:d1bf39c7905064631098f7",
+  measurementId: "G-PF561GDWEW"
 };
 
 const app = initializeApp(firebaseConfig);

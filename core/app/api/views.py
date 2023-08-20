@@ -68,7 +68,6 @@ def classify(request):
             "text": sentences[i],
             "sentiment": predictionsList[i],
             "category": categoriesList[i]
-            # "timestamp", "userName"
         })
 
     return JsonResponse({ "data": ret })

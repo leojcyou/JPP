@@ -13,7 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute"
 import TopNavBar from './components/TopNavBar';
 
 function App() {
-  const allCategories = ["Career", "Academics", "Interpersonal Relationships", "Personal Development"]
+  const allCategories = ["Career", "Academics", "Interpersonal", "Personal Development"]
   
   useEffect(() => {
     WebFont.load({
