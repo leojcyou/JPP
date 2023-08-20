@@ -42,7 +42,6 @@ function App() {
               }
             />
             { allCategories.map((category) => <Route path={`/${category.replaceAll(" ", "-")}`} element={<Category categories={allCategories} category={category} />} key={category} />) }
-            
           </Routes>
         </AuthContextProvider>
       </BrowserRouter>

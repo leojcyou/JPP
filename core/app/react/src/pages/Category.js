@@ -5,10 +5,9 @@ import '../styles/Category.css';
 import SegmentDisplay from '../components/SegmentDisplay';
 import { db } from '../config/firebase';
 import { getDocs, deleteDoc, updateDoc, collection, doc, query, where } from "firebase/firestore"
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
+import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Button } from '@mui/material';
 import { UserAuth } from '../contexts/AuthContext';
 
-// import '../styles/Category.css';
 const stylesTableContainer = {
   borderRadius: '15px', // Adjust the radius as needed
   boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
@@ -23,10 +22,7 @@ export default function Category({ categories, category }) {
 
   const getNotesList = async () => {
     try {
-      // const queryRef = query(notesCollectionRef, where('userName', '==', 'Joe')); //TODO: CHANGE THIS LATER
       const data = await getDocs(notesCollectionRef);
-
-      // console.log("data is", data.docs.data());
 
       data.docs.forEach((each) => {
         console.log("each data", each.data())
@@ -38,52 +34,70 @@ export default function Category({ categories, category }) {
           id: doc.id,
         })
       );
-      
-      console.log("filteredData is", filteredData);
 
+      console.log("filteredData is", filteredData);
+      
       setSegments(filteredData);
-      // console.log(data)
     } 
     
     catch (err) {
       console.error(err);
     }
+
+    console.log("getNotesList ran to completion");
   };
   const [ selected, setSelected ] = useState([]);
 
   // useEffect here to pull from db and place into segments
   useEffect(() => {
+    console.log("useEffect called");
     getNotesList();
-  }, [segments])
+  }, [])
 
   const deleteSegment = async (id) => {
     console.log("deleting ", id)
     const notesDoc = doc(db, "notes", id);
     await deleteDoc(notesDoc);
+
+    setSegments((prevSegments) => {
+      const newSegments = [...segments];
+      const indexToDelete = newSegments.findIndex((segment) => segment.id === id);
+
+      if (indexToDelete !== -1) {
+        newSegments.splice(indexToDelete, 1);
+        
+        return newSegments;
+      }
+
+      else
+        return prevSegments;
+    })
   };
 
   const updateSegment = async (id, paragraph) => {
     console.log("updating ", id)
     const notesDoc = doc(db, "notes", id);
     await updateDoc(notesDoc, { text: paragraph });
+
+    const newSegments = [...segments];
+    const toUpdate = newSegments.find((segment) => segment.id === id);
+
+    if (toUpdate)
+      toUpdate.text = paragraph;
+
+    setSegments(newSegments);
   };
-
-
-
-  function createData(note, date, sentiment) {
-    return { note, date, sentiment};
-  }
-  const rows = [
-    createData('pain', '10/10/2021', 'sad'),createData('pain', '10/10/2021', 'sad'),createData('pain', '10/10/2021', 'sad')
-  ];
 
   return (
     <div class = "container">
-
-      <Typography fontSize = "50px" fontFamily="times new roman" color = "#3f3430" padding = "30px">{category}</Typography>
-      <Dropdown defaultOpen></Dropdown>
-
-
+      <Typography 
+        fontSize="50px" 
+        fontFamily="times new roman" 
+        color="#3f3430" 
+        padding="30px"
+      >
+        {category}
+      </Typography>
       <Box>
       <Autocomplete
           multiple
@@ -116,55 +130,36 @@ export default function Category({ categories, category }) {
                 <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }}>Entries</TableCell>
                 <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Sentiment</TableCell>
                 <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">Date</TableCell>
-                <Button></Button>
+                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">
+                  Edit
+                </TableCell>
+                <TableCell sx={{ fontSize: "18px", color: "#3f3430",fontFamily:"Times new roman" }} align="right">
+                  Remove
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.note}>
-                  <TableCell component="th" scope="row">
-                    {row.note}
-                  </TableCell>
-                  <TableCell align="right">{row.sentiment}</TableCell>
-                  <TableCell align="right">{row.date}</TableCell>
+              {segments.filter((segment) => {
+                if (selected.length === 0)
+                  return true;
 
-                </TableRow>
+                for (let i = 0; i < selected.length; i++) {
+                  if (selected[i] === segment.sentiment)
+                    return true;
+                }
+
+                return false;
+              }).map((segment) => (
+                <SegmentDisplay 
+                  segment={segment} 
+                  key={segment.id} 
+                  updateSeg={updateSegment} 
+                  removeSeg={deleteSegment}
+                />
               ))}
             </TableBody>
           </Table>
         </TableContainer>
-      </Box>
-
-
-
-      <Box sx={{
-        borderRadius: '10px', // Set the border radius
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Add a shadow
-        padding: '20px', // Add some padding for content
-        width: 500,
-        maxHeight: 600,
-        backgroundColor: "lightblue",
-        overflow: "auto",
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-
-        { segments.filter((segment) => {
-          if (selected.length === 0)
-            return true;
-
-          for (let i = 0; i < selected.length; i++) {
-            if (selected[i] === segment.sentiment)
-              return true;
-          }
-
-          return false;
-        }).map((filteredSegment) => <SegmentDisplay
-          segment={filteredSegment}
-          segmentID={filteredSegment.id}
-          removeSeg={deleteSegment}
-          updateSeg={updateSegment}/>
-        )}
       </Box>
     </div>
   );

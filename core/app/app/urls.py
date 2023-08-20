@@ -20,9 +20,9 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.index, name = 'index'),
+    path('',views.index, name   = 'index'),
     path('classification/', include('api.urls')),
    
-    re_path(r'.*', views.index)
+    # re_path(r'.*', views.index)
 ]
 
