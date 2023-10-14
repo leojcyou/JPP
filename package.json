@@ -1,0 +1,9 @@
+{
+  "name": "JPP",
+  "version": "1.0.0",
+  "dependencies": {
+    "@mui/icons-material": "^5.14.3",
+    "react": "^18.2.0",
+    "react-router-dom": "^6.15.0"
+  }
+}

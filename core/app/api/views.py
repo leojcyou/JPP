@@ -13,7 +13,7 @@ def classify(request):
     paragraph = json.loads(request.body)["text"]
     sentences, parsedSentences, categoriesList = classifyIntoCategories(paragraph)
 
-    model = tf.keras.models.load_model("C:/Users/qianx/Desktop/Coding/OLD_JPP/core/app/app/sentiment_model/model.keras")
+    model = tf.keras.models.load_model("../app/sentiment_model/model.keras")
     # model.summary()
 
     classes = ['Sadness', 'Joy', 'Love', 'Anger', 'Fear', 'Surprise']
